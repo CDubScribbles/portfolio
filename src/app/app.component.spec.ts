@@ -1,39 +1,51 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+
 import { AppComponent } from './app.component';
+import { SITE } from './site.config';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
-  let component: AppComponent;
+  let page: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent]
+      imports: [AppComponent],
+      providers: [provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
+    page = fixture.nativeElement as HTMLElement;
   });
 
-  it('creates the portfolio starter', () => {
-    expect(component).toBeTruthy();
+  it('creates the application shell', () => {
+    expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('renders the replaceable student name', () => {
-    const page = fixture.nativeElement as HTMLElement;
+  it('offers a skip link that targets the main landmark', () => {
+    const skipLink = page.querySelector('.skip-link');
 
-    expect(page.querySelector('h1')?.textContent).toContain(component.studentName);
+    expect(skipLink?.getAttribute('href')).toBe('#main-content');
+    expect(page.querySelector('main#main-content')).not.toBeNull();
   });
 
-  it('renders every skill from the component data', () => {
-    const skillItems = fixture.nativeElement.querySelectorAll('.skill-list li');
+  it('moves focus to the main landmark when the skip link is used', () => {
+    const skipLink = page.querySelector('.skip-link') as HTMLAnchorElement;
 
-    expect(skillItems.length).toBe(component.skills.length);
+    skipLink.click();
+
+    expect(document.activeElement?.id).toBe('main-content');
   });
 
-  it('renders every project from the component data', () => {
-    const projectCards = fixture.nativeElement.querySelectorAll('.project-card');
+  it('renders a primary navigation link for each page', () => {
+    const links = page.querySelectorAll('nav[aria-label="Primary"] a');
 
-    expect(projectCards.length).toBe(component.projects.length);
+    expect(links.length).toBe(fixture.componentInstance.navItems.length);
+  });
+
+  it('shows the site name in the header and footer', () => {
+    expect(page.querySelector('.brand')?.textContent).toContain(SITE.name);
+    expect(page.querySelector('footer')?.textContent).toContain(SITE.name);
   });
 });
