@@ -1,11 +1,11 @@
 <section class="container hero" aria-labelledby="hero-heading">
   <div class="hero-copy reveal">
     <p class="eyebrow">{{ site.role }}</p>
-    <h1 id="hero-heading">Hi, I'm {{ site.shortName }}.</h1>
+    <h1 id="hero-heading">Hi, I'm <span class="name">{{ site.shortName }}</span>.</h1>
     <p class="lead">
       I build accessible, well-tested web apps with Angular and TypeScript.
-      My background in theater, hospitality, and e-commerce taught me to
-      design for real people under real pressure.
+      My background in theater, hospitality, and <span class="nowrap">e-commerce</span>
+      taught me to design for real people under real pressure.
     </p>
     <div class="hero-actions">
       <a class="button" routerLink="/projects">View my projects</a>
@@ -13,24 +13,31 @@
     </div>
   </div>
 
-  <div class="badge" aria-hidden="true">
-    <span class="badge-sky"></span>
-    <span class="badge-sun"></span>
-    <span class="badge-floor"></span>
+  <div class="badge">
+    <img
+      src="images/pug-badge.webp"
+      width="640"
+      height="640"
+      fetchpriority="high"
+      decoding="async"
+      alt="Illustration of a pug in aviator sunglasses in front of a sunset, palm trees, and mountains"
+    />
   </div>
 </section>
 
 <section class="container section" aria-labelledby="bucket-heading">
   <h2 id="bucket-heading">Bucket list</h2>
-  @if (bucketList.length > 0) {
-    <ul class="bucket-list">
-      @for (item of bucketList; track item) {
-        <li>{{ item }}</li>
-      }
-    </ul>
-  } @else {
-    <p class="muted">Coming soon: a few things I want to do, build, and see.</p>
-  }
+  <p class="muted">{{ doneCount }} of {{ bucketList.length }} done, and I'm adding more.</p>
+  <ul class="bucket-list">
+    @for (item of bucketList; track item.text) {
+      <li [class.done]="item.done">
+        <span class="mark" aria-hidden="true">{{ item.done ? '✓' : '' }}</span>
+        <span>
+          <span class="visually-hidden">{{ item.done ? 'Done: ' : 'To do: ' }}</span>{{ item.text }}
+        </span>
+      </li>
+    }
+  </ul>
 </section>
 
 <section class="container section" aria-labelledby="explore-heading">

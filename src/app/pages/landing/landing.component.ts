@@ -3,6 +3,11 @@ import { RouterLink } from '@angular/router';
 
 import { SITE } from '../../site.config';
 
+interface BucketItem {
+  readonly text: string;
+  readonly done: boolean;
+}
+
 @Component({
   selector: 'app-landing',
   standalone: true,
@@ -13,8 +18,20 @@ import { SITE } from '../../site.config';
 export class LandingComponent {
   readonly site = SITE;
 
-  /** Filled in during the content pass. An empty list shows a friendly placeholder. */
-  readonly bucketList: readonly string[] = [];
+  readonly bucketList: readonly BucketItem[] = [
+    { text: 'Travel to Asia', done: false },
+    { text: 'Travel to Europe', done: false },
+    { text: 'Travel to Scandinavia', done: false },
+    { text: 'Travel to Patagonia', done: false },
+    { text: 'Party with Snoop Dogg', done: true },
+    { text: 'Watch the dawn from a place most never visit', done: true },
+    { text: 'Write a bestselling novel', done: false },
+    { text: 'Have an otherworldly experience no one else believes', done: true }
+  ];
+
+  get doneCount(): number {
+    return this.bucketList.filter(item => item.done).length;
+  }
 
   readonly explore = [
     {

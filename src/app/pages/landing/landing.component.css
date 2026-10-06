@@ -14,6 +14,22 @@
   font-size: var(--step-1);
 }
 
+.nowrap { white-space: nowrap; }
+
+/* The name gets the sunset. Large text, so it clears contrast with room to spare. */
+.name {
+  background: var(--sunset);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@supports not (background-clip: text) {
+  .name { background: none; color: var(--gold); }
+}
+@media (forced-colors: active) {
+  .name { background: none; color: CanvasText; }
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -21,9 +37,7 @@
   margin-top: var(--space-5);
 }
 
-/* The badge: a circular sunset, echoing the avatar. Pure decoration. */
 .badge {
-  position: relative;
   width: min(100%, 22rem);
   aspect-ratio: 1;
   margin-inline: auto;
@@ -32,44 +46,52 @@
   box-shadow:
     0 0 0 4px var(--gold),
     0 0 0 9px var(--bg),
-    0 0 48px rgb(255 79 154 / 0.35);
+    0 0 56px rgb(255 79 154 / 0.4);
 }
 
-.badge-sky {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    #0a0e1f 0%,
-    #241447 35%,
-    #5b1f6b 55%,
-    #ff4f9a 72%,
-    #ff8a3d 84%,
-    #ffc857 100%
-  );
+.badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.badge-sun {
-  position: absolute;
-  bottom: 30%;
-  left: 50%;
-  width: 52%;
-  aspect-ratio: 1;
-  transform: translate(-50%, 50%);
+.bucket-list {
+  display: grid;
+  gap: var(--space-3) var(--space-6);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .bucket-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+.bucket-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* Status shows as a shape (check vs. empty ring) and as hidden text, never color alone. */
+.mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.1rem;
+  border: 2px solid var(--border-strong);
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 35%, #fff3c4, var(--gold) 55%, var(--orange));
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1;
 }
 
-.badge-floor {
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 30%;
-  border-top: 2px solid var(--pink);
-  background-color: var(--bg);
-  background-image:
-    linear-gradient(to right, rgb(94 231 255 / 0.4) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(94 231 255 / 0.4) 1px, transparent 1px);
-  background-size: 28px 28px;
+.done .mark {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--on-sunset);
 }
 
 .card-grid {
@@ -93,8 +115,3 @@
 
 .card h3 { margin-bottom: var(--space-2); }
 .card p { margin: 0; }
-
-.bucket-list {
-  margin: 0;
-  padding-left: var(--space-5);
-}

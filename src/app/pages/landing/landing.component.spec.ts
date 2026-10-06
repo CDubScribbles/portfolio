@@ -32,12 +32,29 @@ describe('LandingComponent', () => {
     expect(cards.length).toBe(fixture.componentInstance.explore.length);
   });
 
-  it('shows a friendly message while the bucket list is empty', () => {
-    expect(page.textContent).toContain('Coming soon');
-    expect(page.querySelector('.bucket-list')).toBeNull();
+  it('lists every bucket list item', () => {
+    const items = page.querySelectorAll('.bucket-list li');
+
+    expect(items.length).toBe(fixture.componentInstance.bucketList.length);
   });
 
-  it('hides the decorative sunset badge from assistive technology', () => {
-    expect(page.querySelector('.badge')?.getAttribute('aria-hidden')).toBe('true');
+  it('reports bucket list progress', () => {
+    const { doneCount, bucketList } = fixture.componentInstance;
+
+    expect(page.textContent).toContain(`${doneCount} of ${bucketList.length} done`);
+  });
+
+  it('states each bucket list status in text, not just color or shape', () => {
+    const items = Array.from(page.querySelectorAll('.bucket-list li'));
+
+    for (const item of items) {
+      expect(item.textContent).toMatch(/Done:|To do:/);
+    }
+  });
+
+  it('gives the hero image descriptive alt text', () => {
+    const image = page.querySelector('.badge img');
+
+    expect(image?.getAttribute('alt')?.length).toBeGreaterThan(10);
   });
 });
