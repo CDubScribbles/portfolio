@@ -1,5 +1,65 @@
 <section class="container page">
   <p class="eyebrow">Experience and skills</p>
   <h1>Resume</h1>
-  <p class="muted">This page is under construction. Check back soon.</p>
+  <p>
+    <a class="button" href="files/Clifford_Smith_Resume.pdf" download>Download resume (PDF)</a>
+  </p>
+
+  <div class="layout">
+    <div class="main-col">
+      <section class="panel" aria-labelledby="profile-heading">
+        <h2 id="profile-heading">Profile</h2>
+        <p>{{ resume.profile }}</p>
+      </section>
+
+      <section class="panel" aria-labelledby="experience-heading">
+        <h2 id="experience-heading">Experience</h2>
+        @for (job of resume.jobs; track job.title) {
+          <article class="job">
+            <h3>{{ job.title }}</h3>
+            <p class="org">
+              @if (job.organization) { {{ job.organization }}, }{{ job.location }}
+            </p>
+            <p class="dates">{{ job.dates }}</p>
+            @if (job.detail) {
+              <p class="muted">{{ job.detail }}</p>
+            }
+            <ul class="bullets">
+              @for (bullet of job.bullets; track bullet) {
+                <li>{{ bullet }}</li>
+              }
+            </ul>
+          </article>
+        }
+      </section>
+    </div>
+
+    <div class="side-col">
+      <section class="panel" aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Skills</h2>
+        @for (group of resume.skillGroups; track group.label) {
+          <h3 class="group-label">{{ group.label }}</h3>
+          <ul class="tags">
+            @for (item of group.items; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        }
+      </section>
+
+      <section class="panel" aria-labelledby="education-heading">
+        <h2 id="education-heading">Education</h2>
+        @for (entry of resume.education; track entry.school) {
+          <div class="edu">
+            <h3>{{ entry.school }}</h3>
+            <p class="org">{{ entry.credential }}</p>
+            <p class="dates">{{ entry.years }}</p>
+            @if (entry.note) {
+              <p class="muted">{{ entry.note }}</p>
+            }
+          </div>
+        }
+      </section>
+    </div>
+  </div>
 </section>

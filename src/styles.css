@@ -22,6 +22,7 @@
   --sunset: linear-gradient(135deg, var(--gold), var(--orange) 50%, var(--pink));
 
   /* Type */
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --step-small: 0.875rem;
   --step-0: 1rem;
@@ -48,6 +49,11 @@
    ========================================================================== */
 *, *::before, *::after { box-sizing: border-box; }
 
+@media (min-width: 40rem) {
+  /* The header is sticky from this width up, so keep focused elements clear of it. */
+  html { scroll-padding-top: 6rem; }
+}
+
 html {
   color-scheme: dark;
   -webkit-text-size-adjust: 100%;
@@ -60,6 +66,9 @@ body {
   font-family: var(--font);
   font-size: var(--step-0);
   line-height: 1.6;
+  /* A faint grid of dots: a restrained cyberpunk nod. Worst-case text contrast over a dot is 7.7:1. */
+  background-image: radial-gradient(rgb(94 231 255 / 0.14) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 h1, h2, h3 {
@@ -105,6 +114,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 .eyebrow {
   margin: 0 0 var(--space-3);
+  font-family: var(--font-mono);
   color: var(--green);
   font-size: var(--step-small);
   font-weight: 700;
@@ -169,6 +179,57 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .skip-link:hover { color: var(--on-sunset); }
 .skip-link:focus { top: var(--space-4); }
+
+.eyebrow::before {
+  content: "/// " / "";
+  opacity: 0.7;
+}
+
+/* Solid panel for content-heavy sections. */
+.panel {
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+}
+
+/*
+  Frosted glass. Opacity is 85% on purpose: with pure white behind it the
+  worst-case contrast is 6.0:1 for muted text, 9.8:1 for body text.
+*/
+.glass {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: rgb(17 24 51 / 0.85);
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass {
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    backdrop-filter: blur(14px) saturate(1.3);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--surface-2);
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tags li {
+  padding: 0.2rem 0.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: var(--step-small);
+}
 
 /* One gentle, one-time entrance. Never loops, never required to read the page. */
 @media (prefers-reduced-motion: no-preference) {

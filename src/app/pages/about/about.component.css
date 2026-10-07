@@ -1,0 +1,35 @@
+.about-grid {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 56rem) {
+  .about-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.story p { max-width: 62ch; }
+
+.photo {
+  position: relative;
+  margin: 0;
+}
+
+.photo img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+
+/* Glass over the photo. Worst-case contrast with white behind it is 6.0:1 or better. */
+.photo figcaption {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  left: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--step-small);
+}

@@ -1,0 +1,64 @@
+.layout {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 56rem) {
+  .layout {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.main-col,
+.side-col {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.panel h2 { font-size: var(--step-1); }
+.panel p:last-child { margin-bottom: 0; }
+
+.job + .job,
+.edu + .edu {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+.job h3,
+.edu h3 {
+  margin-bottom: var(--space-1);
+  font-size: var(--step-1);
+}
+
+.org {
+  margin: 0;
+  font-weight: 600;
+}
+
+.dates {
+  margin: 0 0 var(--space-3);
+  color: var(--text-muted);
+  font-size: var(--step-small);
+}
+
+.bullets {
+  margin: var(--space-3) 0 0;
+  padding-left: var(--space-5);
+}
+.bullets li {
+  max-width: 70ch;
+  margin-bottom: var(--space-2);
+}
+
+.group-label {
+  margin: var(--space-4) 0 var(--space-2);
+  color: var(--text-muted);
+  font-size: var(--step-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.group-label:first-of-type { margin-top: 0; }

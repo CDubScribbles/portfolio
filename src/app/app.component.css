@@ -14,6 +14,15 @@ main:focus { outline: none; }
   border-bottom: 1px solid var(--border);
 }
 
+/* Sticky only where the header fits on one row; on small screens it scrolls away. */
+@media (min-width: 40rem) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+}
+
 .header-inner {
   display: flex;
   flex-wrap: wrap;

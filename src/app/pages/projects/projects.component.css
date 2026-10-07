@@ -1,0 +1,40 @@
+.wrap {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Soft sunset glow behind the cards, so the glass has something to frost. */
+.glow {
+  position: absolute;
+  inset: 0 -1rem;
+  z-index: -1;
+  background:
+    radial-gradient(34rem 22rem at 88% 12%, rgb(255 79 154 / 0.38), transparent 65%),
+    radial-gradient(30rem 22rem at 6% 52%, rgb(255 138 61 / 0.3), transparent 65%),
+    radial-gradient(28rem 18rem at 72% 92%, rgb(94 231 255 / 0.22), transparent 65%);
+}
+
+.project-list {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.project {
+  padding: var(--space-5);
+}
+
+.project h2 { font-size: var(--step-2); }
+.project p:last-child { margin-bottom: 0; }
+
+.label {
+  margin: var(--space-4) 0 var(--space-2);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.links { margin-top: var(--space-5); }

@@ -1,5 +1,48 @@
 <section class="container page">
   <p class="eyebrow">The story so far</p>
   <h1>About me</h1>
-  <p class="muted">This page is under construction. Check back soon.</p>
+
+  <div class="about-grid">
+    <div class="story">
+      <p>
+        I grew up in a lake town in northeast Georgia and spent most of my
+        formative years in Southern California. Lake water and sunsets are still
+        my favorite color palette, which is why this site looks the way it does.
+      </p>
+      <p>
+        My path here is not a straight line. I earned an MFA in Acting at USC,
+        worked in marketing and publishing, and spent about a decade in upscale
+        Los Angeles hospitality before moving into eCommerce and, now, web
+        development. Reading a room in real time turned out to be excellent
+        training for building software people actually enjoy using.
+      </p>
+      <p>
+        Today I build accessible, well-tested web apps with Angular and
+        TypeScript, and I'm finishing a B.S. in Web Development at Bellevue
+        University (expected 2026).
+      </p>
+      <p>
+        Off the clock, I love cooking and science fiction, and cyberpunk is a
+        standing obsession: the game, <em>Neuromancer</em>, all of it.
+      </p>
+      <p>
+        The pug is {{ mascotName }}, the unofficial mascot of this site. He has
+        strong opinions about sunsets.
+      </p>
+    </div>
+
+    <figure class="photo">
+      <img
+        src="images/brosephius-beach-1200.webp"
+        srcset="images/brosephius-beach-600.webp 600w, images/brosephius-beach-1200.webp 1200w"
+        sizes="(min-width: 56rem) 40vw, 100vw"
+        width="1200"
+        height="800"
+        loading="lazy"
+        decoding="async"
+        alt="A pug in tortoiseshell sunglasses lounging on a sunny Southern California beach under a red, white, and blue umbrella"
+      />
+      <figcaption class="glass">{{ mascotName }}, made with Canva AI.</figcaption>
+    </figure>
+  </div>
 </section>
