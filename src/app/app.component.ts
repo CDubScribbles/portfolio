@@ -24,6 +24,7 @@ export class AppComponent {
 
   readonly site = SITE;
   readonly currentYear = new Date().getFullYear();
+  readonly phoneDigits = SITE.phone.replace(/\D/g, '');
 
   readonly navItems = [
     { path: '/resume', label: 'Resume' },

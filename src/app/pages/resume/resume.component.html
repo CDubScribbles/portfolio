@@ -60,6 +60,18 @@
           </div>
         }
       </section>
+
+      <section class="panel" aria-labelledby="learnings-heading">
+        <h2 id="learnings-heading">Learnings</h2>
+        <ul class="learnings">
+          @for (item of resume.learnings; track item.topic) {
+            <li>
+              <strong>{{ item.topic }}</strong>
+              <span class="muted">{{ item.detail }}</span>
+            </li>
+          }
+        </ul>
+      </section>
     </div>
   </div>
 </section>

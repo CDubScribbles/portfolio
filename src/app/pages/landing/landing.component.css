@@ -115,3 +115,14 @@
 
 .card h3 { margin-bottom: var(--space-2); }
 .card p { margin: 0; }
+
+.availability {
+  padding: var(--space-6);
+}
+.availability h2 { margin-bottom: var(--space-3); }
+.availability-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-5) 0 0;
+}

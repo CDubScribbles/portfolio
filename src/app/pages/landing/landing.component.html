@@ -25,6 +25,21 @@
   </div>
 </section>
 
+<section class="container section" aria-labelledby="availability-heading">
+  <div class="availability glass">
+    <p class="eyebrow">Open to work</p>
+    <h2 id="availability-heading">Available for roles and freelance projects</h2>
+    <p>
+      I'm looking for an entry-level or junior web developer role, and I take on
+      freelance and contract work. If you have something in mind, I'd like to hear about it.
+    </p>
+    <p class="availability-actions">
+      <a class="button" [href]="'mailto:' + site.email">Email me</a>
+      <a class="button button-secondary" routerLink="/resume">See my resume</a>
+    </p>
+  </div>
+</section>
+
 <section class="container section" aria-labelledby="bucket-heading">
   <h2 id="bucket-heading">Bucket list</h2>
   <p class="muted">{{ doneCount }} of {{ bucketList.length }} done, and I'm adding more.</p>

@@ -19,11 +19,17 @@ export interface Education {
   readonly note?: string;
 }
 
+export interface Learning {
+  readonly topic: string;
+  readonly detail: string;
+}
+
 export interface ResumeData {
   readonly profile: string;
   readonly jobs: readonly Job[];
   readonly skillGroups: readonly SkillGroup[];
   readonly education: readonly Education[];
+  readonly learnings: readonly Learning[];
 }
 
 /** Mirrors Clifford_Smith_Resume.pdf. Edit here, and keep the PDF in sync. */
@@ -127,6 +133,26 @@ export const RESUME: ResumeData = {
       school: 'Brenau University',
       credential: 'Bachelor of Arts',
       years: '2000–2004'
+    }
+  ],
+
+  /** Course and project learnings. Not on the PDF; edit freely. */
+  learnings: [
+    {
+      topic: 'Angular and TypeScript',
+      detail: 'Standalone components, routing with guards, template-driven and reactive forms, RxJS.'
+    },
+    {
+      topic: 'Testing with Karma and Jasmine',
+      detail: 'Writing tests as contracts, and asking what a passing suite does not cover.'
+    },
+    {
+      topic: 'Accessibility (WCAG 2.1 AA)',
+      detail: 'Measured color contrast, keyboard navigation, semantic structure, and reduced-motion support.'
+    },
+    {
+      topic: 'Deployment with GitHub Actions',
+      detail: 'A pipeline that tests, builds, and publishes to GitHub Pages on every push.'
     }
   ]
 };

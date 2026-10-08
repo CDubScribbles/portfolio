@@ -29,8 +29,12 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; {{ currentYear }} {{ site.name }}</p>
-      <p><a [href]="site.github">GitHub</a></p>
+      <p>&copy; {{ currentYear }} {{ site.name }} &middot; {{ site.city }}</p>
+      <ul class="footer-links" aria-label="Contact">
+        <li><a [href]="'mailto:' + site.email">{{ site.email }}</a></li>
+        <li><a [href]="'tel:+1' + phoneDigits">{{ site.phone }}</a></li>
+        <li><a [href]="site.github">GitHub</a></li>
+      </ul>
     </div>
   </footer>
 </div>

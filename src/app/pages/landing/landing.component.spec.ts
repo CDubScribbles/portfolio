@@ -52,6 +52,13 @@ describe('LandingComponent', () => {
     }
   });
 
+  it('invites contact with an email link in the availability section', () => {
+    const link = page.querySelector('.availability a[href^="mailto:"]');
+
+    expect(link?.getAttribute('href')).toBe(`mailto:${SITE.email}`);
+    expect(page.querySelector('#availability-heading')).not.toBeNull();
+  });
+
   it('gives the hero image descriptive alt text', () => {
     const image = page.querySelector('.badge img');
 

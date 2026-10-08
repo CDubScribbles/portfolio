@@ -44,6 +44,16 @@ describe('AppComponent', () => {
     expect(links.length).toBe(fixture.componentInstance.navItems.length);
   });
 
+  it('offers email, phone, and GitHub contact links in the footer', () => {
+    const hrefs = Array.from(page.querySelectorAll('footer .footer-links a')).map(a =>
+      a.getAttribute('href')
+    );
+
+    expect(hrefs).toContain(`mailto:${SITE.email}`);
+    expect(hrefs).toContain('tel:+12134222037');
+    expect(hrefs).toContain(SITE.github);
+  });
+
   it('shows the site name in the header and footer', () => {
     expect(page.querySelector('.brand')?.textContent).toContain(SITE.name);
     expect(page.querySelector('footer')?.textContent).toContain(SITE.name);

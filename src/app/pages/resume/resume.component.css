@@ -62,3 +62,12 @@
   text-transform: uppercase;
 }
 .group-label:first-of-type { margin-top: 0; }
+
+.learnings {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.learnings li { display: grid; gap: var(--space-1); }

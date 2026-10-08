@@ -41,6 +41,13 @@ describe('ResumeComponent', () => {
     expect(firstJob.querySelectorAll('.bullets li').length).toBe(RESUME.jobs[0].bullets.length);
   });
 
+  it('lists each learning with its topic', () => {
+    const items = page.querySelectorAll('.learnings li');
+
+    expect(items.length).toBe(RESUME.learnings.length);
+    expect(page.querySelector('#learnings-heading')?.textContent).toContain('Learnings');
+  });
+
   it('renders each skill group and education entry', () => {
     expect(page.querySelectorAll('.side-col .tags').length).toBe(RESUME.skillGroups.length);
     expect(page.querySelectorAll('.edu').length).toBe(RESUME.education.length);
