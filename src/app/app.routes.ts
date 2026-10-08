@@ -34,6 +34,7 @@ export const routes: Routes = [
   {
     path: '**',
     title: `Page not found | ${SITE.name}`,
+    data: { simpleHeader: true },
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent)
   }

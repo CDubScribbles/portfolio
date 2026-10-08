@@ -30,6 +30,10 @@ describe('application routes', () => {
     expect(loaded).toBeDefined();
   });
 
+  it('marks the wildcard route for the simple header', () => {
+    expect(routes[routes.length - 1].data?.['simpleHeader']).toBeTrue();
+  });
+
   it('gives every route a page title', () => {
     for (const route of routes) {
       expect(route.title).toBeTruthy();

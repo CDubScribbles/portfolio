@@ -1,8 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, provideRouter } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SITE } from './site.config';
+
+@Component({ standalone: true, template: '' })
+class BlankComponent {}
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -11,7 +15,12 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter([])]
+      providers: [
+        provideRouter([
+          { path: 'plain', component: BlankComponent },
+          { path: '**', component: BlankComponent, data: { simpleHeader: true } }
+        ])
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
@@ -52,6 +61,19 @@ describe('AppComponent', () => {
     expect(hrefs).toContain(`mailto:${SITE.email}`);
     expect(hrefs).toContain('tel:+12134222037');
     expect(hrefs).toContain(SITE.github);
+  });
+
+  it('shows the full navigation on regular pages and a simple header on the 404', async () => {
+    const router = TestBed.inject(Router);
+
+    await router.navigateByUrl('/plain');
+    fixture.detectChanges();
+    expect(page.querySelector('nav[aria-label="Primary"]')).not.toBeNull();
+
+    await router.navigateByUrl('/does-not-exist');
+    fixture.detectChanges();
+    expect(page.querySelector('nav[aria-label="Primary"]')).toBeNull();
+    expect(page.querySelector('.brand')).not.toBeNull();
   });
 
   it('shows the site name in the header and footer', () => {

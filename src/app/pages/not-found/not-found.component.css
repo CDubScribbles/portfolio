@@ -1,0 +1,24 @@
+.lost {
+  display: grid;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+@media (min-width: 56rem) {
+  .lost { grid-template-columns: 1fr 1.2fr; }
+}
+
+.lost-photo { margin: 0; }
+
+.lost-photo img {
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+}
+
+.lost-photo figcaption {
+  margin-top: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--step-small);
+}

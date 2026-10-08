@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/core';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   NavigationEnd,
@@ -23,6 +23,8 @@ export class AppComponent {
   private readonly document = inject(DOCUMENT);
 
   readonly site = SITE;
+  /** True on pages whose route sets `data: { simpleHeader: true }` (the 404). */
+  readonly simpleHeader = signal(false);
   readonly currentYear = new Date().getFullYear();
   readonly phoneDigits = SITE.phone.replace(/\D/g, '');
 
@@ -33,9 +35,24 @@ export class AppComponent {
   ] as const;
 
   constructor() {
+    const router = inject(Router);
+
+    router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => {
+        let route = router.routerState.snapshot.root;
+        while (route.firstChild) {
+          route = route.firstChild;
+        }
+        this.simpleHeader.set(route.data['simpleHeader'] === true);
+      });
+
     // After each navigation (not the first page load), move focus to the new
     // page so keyboard and screen-reader users land in the content, not the header.
-    inject(Router).events
+    router.events
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
         skip(1),

@@ -7,19 +7,21 @@
     <div class="container header-inner">
       <a class="brand" routerLink="/">{{ site.name }}</a>
 
-      <nav aria-label="Primary">
-        <ul class="nav-list">
-          @for (item of navItems; track item.path) {
-            <li>
-              <a
-                [routerLink]="item.path"
-                routerLinkActive="active"
-                ariaCurrentWhenActive="page"
-              >{{ item.label }}</a>
-            </li>
-          }
-        </ul>
-      </nav>
+      @if (!simpleHeader()) {
+        <nav aria-label="Primary">
+          <ul class="nav-list">
+            @for (item of navItems; track item.path) {
+              <li>
+                <a
+                  [routerLink]="item.path"
+                  routerLinkActive="active"
+                  ariaCurrentWhenActive="page"
+                >{{ item.label }}</a>
+              </li>
+            }
+          </ul>
+        </nav>
+      }
     </div>
   </header>
 
