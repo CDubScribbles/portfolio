@@ -1,4 +1,16 @@
 <div class="shell">
+  <div class="backdrop" aria-hidden="true">
+    <img
+      [src]="backdrop().src"
+      [attr.srcset]="backdrop().srcset"
+      sizes="max(100vw, 200vh)"
+      width="1935"
+      height="968"
+      decoding="async"
+      alt=""
+    />
+  </div>
+
   <a class="skip-link" href="#main-content" (click)="skipToMain($event)">
     Skip to main content
   </a>

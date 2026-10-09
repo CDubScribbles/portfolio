@@ -1,41 +1,29 @@
-<div class="hero-band">
-  <img
-    class="hero-backdrop"
-    src="images/hero-backdrop-1920.webp"
-    srcset="images/hero-backdrop-800.webp 800w, images/hero-backdrop-1280.webp 1280w, images/hero-backdrop-1920.webp 1920w"
-    sizes="100vw"
-    width="1935"
-    height="968"
-    decoding="async"
-    alt=""
-  />
-  <section class="container hero" aria-labelledby="hero-heading">
-    <div class="hero-copy reveal">
-      <p class="eyebrow">{{ site.role }}</p>
-      <h1 id="hero-heading">Hi, I'm <span class="name">{{ site.shortName }}</span>.</h1>
-      <p class="lead">
-        I build accessible, well-tested web apps with Angular and TypeScript.
-        My background in theater, hospitality, and <span class="nowrap">e-commerce</span>
-        taught me to design for real people under real pressure.
-      </p>
-      <div class="hero-actions">
-        <a class="button" routerLink="/projects">View my projects</a>
-        <a class="button button-secondary" routerLink="/resume">Read my resume</a>
-      </div>
+<section class="container hero" aria-labelledby="hero-heading">
+  <div class="hero-copy reveal">
+    <p class="eyebrow">{{ site.role }}</p>
+    <h1 id="hero-heading">Hi, I'm <span class="name">{{ site.shortName }}</span>.</h1>
+    <p class="lead">
+      I build accessible, well-tested web apps with Angular and TypeScript.
+      My background in theater, hospitality, and <span class="nowrap">e-commerce</span>
+      taught me to design for real people under real pressure.
+    </p>
+    <div class="hero-actions">
+      <a class="button" routerLink="/projects">View my projects</a>
+      <a class="button button-secondary" routerLink="/resume">Read my resume</a>
     </div>
+  </div>
 
-    <div class="badge">
-      <img
-        src="images/pug-badge.webp"
-        width="640"
-        height="640"
-        fetchpriority="high"
-        decoding="async"
-        alt="Illustration of a pug in aviator sunglasses in front of a sunset, palm trees, and mountains"
-      />
-    </div>
-  </section>
-</div>
+  <div class="badge">
+    <img
+      src="images/pug-badge.webp"
+      width="640"
+      height="640"
+      fetchpriority="high"
+      decoding="async"
+      alt="Illustration of a pug in aviator sunglasses in front of a sunset, palm trees, and mountains"
+    />
+  </div>
+</section>
 
 <section class="container section" aria-labelledby="availability-heading">
   <div class="availability glass">

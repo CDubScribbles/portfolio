@@ -66,9 +66,7 @@ body {
   font-family: var(--font);
   font-size: var(--step-0);
   line-height: 1.6;
-  /* A faint grid of dots: a restrained cyberpunk nod. Worst-case text contrast over a dot is 7.7:1. */
-  background-image: radial-gradient(rgb(94 231 255 / 0.14) 1px, transparent 1px);
-  background-size: 28px 28px;
+  /* The dot grid and backdrop image live in the fixed layer in app.component.css. */
 }
 
 h1, h2, h3 {

@@ -126,34 +126,3 @@
   gap: var(--space-3);
   margin: var(--space-5) 0 0;
 }
-
-/*
-  Decorative synthwave backdrop behind the hero. The overlay is 80% of the page
-  background color: even the brightest pixel in the image (the sun) leaves muted
-  text at 5.8:1, body text at 9.5:1, and links at 7.3:1. It then fades into the page.
-*/
-.hero-band {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-}
-
-.hero-backdrop {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
-}
-
-.hero-band::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(to bottom, transparent 65%, var(--bg)),
-    rgb(10 14 31 / 0.8);
-}

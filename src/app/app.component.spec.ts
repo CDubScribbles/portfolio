@@ -18,6 +18,7 @@ describe('AppComponent', () => {
       providers: [
         provideRouter([
           { path: 'plain', component: BlankComponent },
+          { path: 'resume-like', component: BlankComponent, data: { backdrop: 'resume' } },
           { path: '**', component: BlankComponent, data: { simpleHeader: true } }
         ])
       ]
@@ -74,6 +75,28 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     expect(page.querySelector('nav[aria-label="Primary"]')).toBeNull();
     expect(page.querySelector('.brand')).not.toBeNull();
+  });
+
+  it('shows one decorative backdrop layer that screen readers skip', () => {
+    const layer = page.querySelector('.backdrop');
+    const image = layer?.querySelector('img');
+
+    expect(layer?.getAttribute('aria-hidden')).toBe('true');
+    expect(image?.getAttribute('alt')).toBe('');
+  });
+
+  it('follows the backdrop setting of the current route', async () => {
+    const router = TestBed.inject(Router);
+
+    await router.navigateByUrl('/resume-like');
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.backdropKey()).toBe('resume');
+
+    await router.navigateByUrl('/plain');
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.backdropKey()).toBe('landing');
   });
 
   it('shows the site name in the header and footer', () => {

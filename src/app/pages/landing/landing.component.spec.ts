@@ -59,13 +59,6 @@ describe('LandingComponent', () => {
     expect(page.querySelector('#availability-heading')).not.toBeNull();
   });
 
-  it('treats the hero backdrop as decoration with empty alt text', () => {
-    const backdrop = page.querySelector('.hero-band .hero-backdrop');
-
-    expect(backdrop).not.toBeNull();
-    expect(backdrop?.getAttribute('alt')).toBe('');
-  });
-
   it('gives the hero image descriptive alt text', () => {
     const image = page.querySelector('.badge img');
 

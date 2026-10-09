@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 
+import { BACKDROPS } from './backdrops';
 import { routes } from './app.routes';
 import { LandingComponent } from './pages/landing/landing.component';
 
@@ -32,6 +33,14 @@ describe('application routes', () => {
 
   it('marks the wildcard route for the simple header', () => {
     expect(routes[routes.length - 1].data?.['simpleHeader']).toBeTrue();
+  });
+
+  it('gives every route a backdrop that exists in the backdrop list', () => {
+    for (const route of routes) {
+      const key = route.data?.['backdrop'] as string;
+
+      expect(Object.keys(BACKDROPS)).toContain(key);
+    }
   });
 
   it('gives every route a page title', () => {
