@@ -23,7 +23,7 @@ export class LandingComponent {
     { text: 'Travel to Europe', done: false },
     { text: 'Travel to Scandinavia', done: false },
     { text: 'Travel to Patagonia', done: false },
-    { text: 'Party with Snoop Dogg', done: true },
+    { text: 'Party with Snoop Dogg (yep, you read that right)', done: true },
     { text: 'Watch the dawn from a place most never visit', done: true },
     { text: 'Write a bestselling novel', done: false },
     { text: 'Have an otherworldly experience no one else believes', done: true }
