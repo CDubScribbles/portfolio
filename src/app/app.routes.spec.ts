@@ -14,8 +14,8 @@ describe('application routes', () => {
     expect(landing.loadComponent).toBeUndefined();
   });
 
-  it('lazy-loads the resume, about, and projects pages', () => {
-    for (const path of ['resume', 'about', 'projects']) {
+  it('lazy-loads the resume, about, projects, and pugs pages', () => {
+    for (const path of ['resume', 'about', 'projects', 'pugs']) {
       const route = find(path);
 
       expect(route.loadComponent).toBeDefined();

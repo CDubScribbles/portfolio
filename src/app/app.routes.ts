@@ -36,6 +36,13 @@ export const routes: Routes = [
       import('./pages/projects/projects.component').then(m => m.ProjectsComponent)
   },
   {
+    path: 'pugs',
+    title: `Pugs | ${SITE.name}`,
+    data: { backdrop: 'pugs' },
+    loadComponent: () =>
+      import('./pages/pugs/pugs.component').then(m => m.PugsComponent)
+  },
+  {
     path: '**',
     title: `Page not found | ${SITE.name}`,
     data: { simpleHeader: true, backdrop: 'notFound' },

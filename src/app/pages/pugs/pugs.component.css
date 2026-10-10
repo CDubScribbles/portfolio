@@ -1,0 +1,138 @@
+.lead {
+  max-width: 52ch;
+  color: var(--text-muted);
+  font-size: var(--step-1);
+}
+
+.story {
+  display: grid;
+  gap: var(--space-8);
+  margin: var(--space-7) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each chapter: the picture on one side, the line on the other, alternating. */
+.chapter figure {
+  display: grid;
+  gap: var(--space-5);
+  align-items: center;
+  margin: 0;
+}
+
+@media (min-width: 56rem) {
+  .chapter figure { grid-template-columns: var(--img-col, 28rem) minmax(0, 1fr); gap: var(--space-7); }
+  .chapter.flip figure { grid-template-columns: minmax(0, 1fr) var(--img-col, 28rem); }
+  .chapter.flip .frame { grid-column: 2; grid-row: 1; }
+  .chapter.flip figcaption { grid-column: 1; grid-row: 1; text-align: right; }
+  .chapter[data-shape='wide'] { --img-col: 34rem; }
+  .chapter[data-shape='tall'] { --img-col: 20rem; }
+}
+
+/* A hard gradient shadow behind each picture, like the home page sticker. */
+.frame {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 34rem);
+}
+.chapter[data-shape='tall'] .frame { width: min(100%, 20rem); }
+.chapter:nth-child(odd) .frame { transform: rotate(-1.5deg); }
+.chapter:nth-child(even) .frame { transform: rotate(1.5deg); }
+
+.frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--pop);
+  transform: translate(8px, 8px);
+}
+
+.frame img {
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--accent);
+}
+
+figcaption {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.number {
+  background: var(--pop);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--step-3);
+  font-weight: 800;
+  line-height: 1;
+}
+@supports not (background-clip: text) {
+  .number { background: none; color: var(--accent); }
+}
+
+.text {
+  max-width: 28ch;
+  font-size: var(--step-2);
+  line-height: 1.3;
+}
+.flip .text { margin-left: auto; }
+
+.outro { margin-top: var(--space-8); }
+
+@media (forced-colors: active) {
+  .number { background: none; color: CanvasText; }
+  .frame::after { display: none; }
+  .frame img { border-color: CanvasText; }
+}
+
+/*
+ * Stacking chapters. On a roomy screen each chapter pins under the header and
+ * the next one rises over it, so the old picture ends up "underneath". It is
+ * pure CSS (position: sticky); phones, short windows and anyone who has asked
+ * for reduced motion simply get the plain list above.
+ */
+@media (min-width: 56rem) and (min-height: 40rem) and (prefers-reduced-motion: no-preference) {
+  .story {
+    --stack-top: 4.75rem;           /* just under the sticky header */
+    gap: 0;
+  }
+
+  .chapter {
+    position: sticky;
+    top: var(--stack-top);
+    display: grid;
+    align-content: center;
+    min-height: calc(100svh - var(--stack-top));
+    padding: var(--space-6) var(--space-6);
+    background: var(--bg);          /* opaque, so it hides the chapter beneath */
+    border-top: 3px solid var(--accent);
+    border-image: var(--pop) 1;
+    box-shadow: 0 -1.25rem 2.5rem rgb(0 0 0 / 0.55);
+  }
+
+  /* Cap the picture so a chapter always fits on one screen. */
+  .frame { width: fit-content; max-width: 100%; }
+  .chapter[data-shape] .frame { width: fit-content; }
+  .frame img {
+    width: auto;
+    max-width: 100%;
+    max-height: calc(100svh - var(--stack-top) - 9rem);
+  }
+
+  /* The chapter number drifts in while its card is still rising. */
+  @supports (animation-timeline: view()) {
+    .chapter figure {
+      animation: chapter-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+@keyframes chapter-rise {
+  from { opacity: 0.35; transform: scale(0.94) translateY(2rem); }
+  to   { opacity: 1;    transform: none; }
+}

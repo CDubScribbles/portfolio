@@ -1,11 +1,28 @@
 <section class="container page wrap">
   <span class="glow" aria-hidden="true"></span>
 
-  <p class="eyebrow">Selected work</p>
-  <h1>Projects</h1>
-  <p class="muted">
-    What I built, what broke, and what I learned fixing it.
-  </p>
+  <div class="intro">
+    <div class="intro-copy">
+      <p class="eyebrow">Selected work</p>
+      <h1>Projects</h1>
+      <p class="muted">
+        What I built, what broke, and what I learned fixing it.
+      </p>
+    </div>
+
+    <figure class="pug-figure">
+      <img
+        src="images/pug-whiteboard-1080.webp"
+        srcset="images/pug-whiteboard-540.webp 540w, images/pug-whiteboard-1080.webp 1080w"
+        sizes="(min-width: 56rem) 20rem, 100vw"
+        width="1080"
+        height="1080"
+        decoding="async"
+        alt="A pug in a vest and bow tie sits at a table covered by a whiteboard of flowcharts and sticky notes, with a team meeting behind him."
+      />
+      <figcaption>Brosephius, mid-roadmap.</figcaption>
+    </figure>
+  </div>
 
   <div class="project-list">
     @for (project of projects; track project.name) {

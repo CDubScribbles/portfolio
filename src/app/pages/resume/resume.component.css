@@ -71,3 +71,19 @@
   list-style: none;
 }
 .learnings li { display: grid; gap: var(--space-1); }
+
+.pug-figure { margin: 0; }
+.pug-figure img {
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--accent);
+}
+.pug-figure figcaption {
+  margin-top: var(--space-3);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+}
+@media (forced-colors: active) {
+  .pug-figure img { border-color: CanvasText; }
+}

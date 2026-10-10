@@ -10,6 +10,7 @@ export const BACKDROPS = {
   resume: 'hero-backdrop',
   about: 'hero-backdrop',
   projects: 'hero-backdrop',
+  pugs: 'hero-backdrop',
   notFound: 'hero-backdrop'
 } as const;
 
