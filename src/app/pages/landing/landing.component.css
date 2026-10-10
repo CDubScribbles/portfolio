@@ -1,30 +1,32 @@
 .hero {
   display: grid;
+  justify-items: center;
   gap: var(--space-7);
-  align-items: center;
-  padding-block: var(--space-8);
+  padding-block: var(--space-7);
+  text-align: center;
 }
 
-@media (min-width: 52rem) {
-  .hero { grid-template-columns: 1.2fr 1fr; }
-}
+.hero-copy { display: grid; justify-items: center; }
+.hero-copy h1 { font-size: clamp(2.4rem, 1.4rem + 4.5vw, 4.5rem); }
 
 .lead {
+  max-width: 52ch;
+  margin-inline: auto;
   color: var(--text-muted);
   font-size: var(--step-1);
 }
 
 .nowrap { white-space: nowrap; }
 
-/* The name gets the sunset. Large text, so it clears contrast with room to spare. */
+/* The name gets the cyan-to-magenta gradient. Large text, so it clears contrast with room to spare. */
 .name {
-  background: var(--sunset);
+  background: var(--pop);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 @supports not (background-clip: text) {
-  .name { background: none; color: var(--gold); }
+  .name { background: none; color: var(--accent); }
 }
 @media (forced-colors: active) {
   .name { background: none; color: CanvasText; }
@@ -33,26 +35,39 @@
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  justify-content: center;
+  gap: var(--space-5);
   margin-top: var(--space-5);
 }
 
+/*
+  A square, slightly tilted "sticker" with a hard gradient shadow, above the text.
+  Sized by width, but capped by viewport height so the buttons stay on the first screen.
+*/
 .badge {
-  width: min(100%, 22rem);
-  aspect-ratio: 1;
-  margin-inline: auto;
-  overflow: hidden;
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 4px var(--gold),
-    0 0 0 9px var(--bg),
-    0 0 56px rgb(255 79 154 / 0.4);
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 22rem, max(17rem, 38vh));
+  transform: rotate(-3deg);
+}
+.badge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--pop);
+  transform: translate(10px, 10px);
 }
 
 .badge img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1;
+  border: 4px solid var(--accent);
   object-fit: cover;
+}
+@media (forced-colors: active) {
+  .badge img { border-color: CanvasText; }
+  .badge::after { display: none; }
 }
 
 .bucket-list {
@@ -82,15 +97,15 @@
   height: 1.5rem;
   margin-top: 0.1rem;
   border: 2px solid var(--border-strong);
-  border-radius: 50%;
+  border-radius: 0;
   font-size: 0.9rem;
   font-weight: 800;
   line-height: 1;
 }
 
 .done .mark {
-  border-color: var(--gold);
-  background: var(--gold);
+  border-color: var(--accent);
+  background: var(--accent);
   color: var(--on-sunset);
 }
 
@@ -106,11 +121,59 @@
   .card-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+/*
+  Cards behave like the buttons: hollow with a gradient outline and shadow at rest,
+  the deeper blue and a press-in on hover or focus. The link's ::after is stretched
+  over the whole card, so the entire card is clickable while the heading stays the
+  real, keyboard-focusable link.
+*/
 .card {
   padding: var(--space-5);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface-2);
+  color: var(--text);
+  transition: transform 0.08s ease-out;
+}
+.card::before {
+  background: var(--bg);
+  border: 2px solid transparent;
+  border-image: var(--pop) 1;
+  transition: background-color 0.08s ease-out;
+}
+.card::after {
+  opacity: 1;
+  clip-path: none;
+  transform: translate(5px, 5px);
+  transition: transform 0.08s ease-out;
+}
+
+.card a { color: var(--accent); outline: none; }
+.card a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+/* The focus ring goes around the whole card, because the whole card is the target. */
+.card a:focus-visible::after {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.card:hover,
+.card:focus-within { color: var(--on-sunset); }
+.card:hover::before,
+.card:focus-within::before { background: var(--accent-deep); }
+.card:hover { transform: translate(3px, 3px); }
+.card:hover::after { transform: translate(2px, 2px); }
+.card:hover a,
+.card:focus-within a {
+  background: none;
+  color: var(--on-sunset);
+  text-decoration-color: currentColor;
+}
+.card:hover p,
+.card:focus-within p { color: var(--on-sunset); }
+
+@media (forced-colors: active) {
+  .card::before { border-image: none; border-color: CanvasText; }
 }
 
 .card h3 { margin-bottom: var(--space-2); }

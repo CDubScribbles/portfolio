@@ -52,6 +52,15 @@ describe('LandingComponent', () => {
     }
   });
 
+  it('shows finished bucket list items before unfinished ones', () => {
+    const items = Array.from(page.querySelectorAll('.bucket-list li'));
+    const flags = items.map(item => item.classList.contains('done'));
+    const firstOpen = flags.indexOf(false);
+
+    expect(flags.length).toBeGreaterThan(0);
+    expect(flags.slice(firstOpen).includes(true)).toBeFalse();
+  });
+
   it('invites contact with an email link in the availability section', () => {
     const link = page.querySelector('.availability a[href^="mailto:"]');
 

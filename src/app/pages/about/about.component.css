@@ -4,9 +4,10 @@
   margin-top: var(--space-6);
 }
 
+/* Side by side on wide screens, with the photo getting the larger share. */
 @media (min-width: 56rem) {
   .about-grid {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
     align-items: start;
   }
 }

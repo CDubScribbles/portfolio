@@ -119,8 +119,7 @@ main:focus { outline: none; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(rgb(94 231 255 / 0.14) 1px, transparent 1px) 0 0 / 28px 28px,
-    rgb(10 14 31 / 0.85);
+    rgb(10 14 31 / 0.8);
 }
 
 @media (forced-colors: active), print {

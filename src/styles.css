@@ -13,13 +13,15 @@
   --text: #eef1ff;
   --text-muted: #b4bde6;
   --accent: #5ee7ff;          /* links and focus */
-  --accent-hot: #ff5fd2;      /* hover emphasis */
+  --accent-hot: #ff5fd2;      /* only ever seen as the far end of --pop, never on its own */
+  --accent-deep: #2fb4e6;     /* the hover blue: 8.0:1 with the dark text on top */
   --green: #3ddc97;           /* the Georgia lake-town nod */
   --gold: #ffc857;
   --orange: #ff8a3d;
   --pink: #ff4f9a;
   --on-sunset: #0a0e1f;       /* text on any sunset-colored fill */
   --sunset: linear-gradient(135deg, var(--gold), var(--orange) 50%, var(--pink));
+  --pop: linear-gradient(90deg, var(--accent), var(--accent-hot));   /* cyan to magenta: the name and accents */
 
   /* Type */
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
@@ -39,8 +41,8 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4.5rem;
-  --radius: 0.5rem;
-  --radius-lg: 1rem;
+  --radius: 0;       /* square corners everywhere; the shape is part of the identity */
+  --radius-lg: 0;
   --container: 68rem;
 }
 
@@ -71,8 +73,9 @@ body {
 
 h1, h2, h3 {
   margin: 0 0 var(--space-4);
+  font-family: var(--font-mono);   /* mono headings, system sans for reading text */
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 h1 { font-size: var(--step-3); }
 h2 { font-size: var(--step-2); }
@@ -87,7 +90,12 @@ a {
   color: var(--accent);
   text-underline-offset: 0.2em;
 }
-a:hover { color: var(--accent-hot); }
+a:hover {
+  /* Gradient underline on hover instead of a flat color change. */
+  background: var(--pop) left bottom / 100% 2px no-repeat;
+  color: var(--text);
+  text-decoration-color: transparent;
+}
 
 img { display: block; max-width: 100%; height: auto; }
 
@@ -135,32 +143,71 @@ img { display: block; max-width: 100%; height: auto; }
   border: 0;
 }
 
+/*
+  Hard offset shadows with a gradient. box-shadow can't hold a gradient, so each
+  shadow is a pseudo-element behind the element: ::after is the shadow (z -2),
+  ::before is the face (z -1), and the element itself paints nothing.
+*/
 .button {
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 2.75rem;
   padding: 0.65rem 1.4rem;
-  border: 2px solid transparent;
-  border-radius: 999px;
-  background: var(--sunset);
-  color: var(--on-sunset);
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-}
-.button:hover { color: var(--on-sunset); filter: brightness(1.1); }
-
-.button-secondary {
-  background: transparent;
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.button-secondary:hover {
-  background: transparent;
-  border-color: var(--accent-hot);
+  border: 0;
+  border-radius: 0;
+  background: none;
   color: var(--text);
-  filter: none;
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.08s ease-out;
+}
+.button::before,
+.button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.button::before {
+  z-index: -1;
+  background: var(--bg);                 /* hollow at rest: dark face, gradient outline */
+  border: 2px solid transparent;
+  border-image: var(--pop) 1;
+  transition: background-color 0.08s ease-out;
+}
+.button::after {
+  z-index: -2;
+  background: var(--pop);
+  transform: translate(5px, 5px);
+  transition: transform 0.08s ease-out;
+}
+
+/* Hover and keyboard focus: the hollow face floods with the deeper blue. Hover also sinks the button onto its shadow. */
+.button:hover,
+.button:focus-visible {
+  background: none;
+  color: var(--on-sunset);
+  text-decoration: none;
+}
+.button:hover::before,
+.button:focus-visible::before { background: var(--accent-deep); }
+.button:hover { transform: translate(3px, 3px); }
+.button:hover::after { transform: translate(2px, 2px); }
+.button:active { transform: translate(5px, 5px); }
+.button:active::after { transform: translate(0, 0); }
+
+/* .button-secondary is kept as a class name but now looks the same as .button. */
+
+@media (forced-colors: active) {
+  .button::after { display: none; }
+  .button::before { border-image: none; border: 2px solid ButtonText; }
 }
 
 .skip-link {
@@ -183,23 +230,56 @@ img { display: block; max-width: 100%; height: auto; }
   opacity: 0.7;
 }
 
-/* Solid panel for content-heavy sections. */
-.panel {
-  padding: var(--space-5);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+/*
+  Panels, glass, and cards share the same construction as the buttons: the
+  element paints nothing, ::before is the face, ::after is the gradient shadow.
+  The shadow is clipped to the visible L-shape so it never tints the face.
+*/
+.panel,
+.glass,
+.card {
+  position: relative;
+  isolation: isolate;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.panel { padding: var(--space-5); }
+
+.panel::before,
+.glass::before,
+.card::before,
+.panel::after,
+.glass::after,
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.panel::before,
+.glass::before,
+.card::before {
+  z-index: -1;
+  border: 2px solid var(--border-strong);
   background: var(--surface-2);
+}
+.panel::after,
+.glass::after,
+.card::after {
+  z-index: -2;
+  background: var(--pop);
+  opacity: 0.4;                                   /* decorative only */
+  transform: translate(6px, 6px);
+  clip-path: polygon(evenodd,
+    0 0, 100% 0, 100% 100%, 0 100%, 0 0,
+    -6px -6px, calc(100% - 6px) -6px, calc(100% - 6px) calc(100% - 6px), -6px calc(100% - 6px), -6px -6px);
 }
 
 /*
   Frosted glass. Opacity is 85% on purpose: with pure white behind it the
   worst-case contrast is 6.0:1 for muted text, 9.8:1 for body text.
 */
-.glass {
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  background: rgb(17 24 51 / 0.85);
-}
+.glass::before { background: rgb(17 24 51 / 0.85); }
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .glass {
     -webkit-backdrop-filter: blur(14px) saturate(1.3);
@@ -210,8 +290,13 @@ img { display: block; max-width: 100%; height: auto; }
   .glass {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    background: var(--surface-2);
   }
+  .glass::before { background: var(--surface-2); }
+}
+
+@media (forced-colors: active) {
+  .panel::after, .glass::after, .card::after { display: none; }
+  .panel::before, .glass::before, .card::before { border-color: CanvasText; }
 }
 
 .tags {
@@ -225,7 +310,8 @@ img { display: block; max-width: 100%; height: auto; }
 .tags li {
   padding: 0.2rem 0.75rem;
   border: 1px solid var(--border-strong);
-  border-radius: 999px;
+  border-radius: 0;
+  font-family: var(--font-mono);
   font-size: var(--step-small);
 }
 

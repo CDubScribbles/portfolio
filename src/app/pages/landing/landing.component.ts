@@ -29,6 +29,10 @@ export class LandingComponent {
     { text: 'Have an otherworldly experience no one else believes', done: true }
   ];
 
+  /** Finished goals first. Array.sort is stable, so each group keeps its written order. */
+  readonly sortedBucketList: readonly BucketItem[] = [...this.bucketList]
+    .sort((a, b) => Number(b.done) - Number(a.done));
+
   get doneCount(): number {
     return this.bucketList.filter(item => item.done).length;
   }

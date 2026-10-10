@@ -96,7 +96,14 @@ export const RESUME: ResumeData = {
   skillGroups: [
     {
       label: 'Technical skills',
-      items: ['HTML', 'CSS', 'JavaScript', 'SQL', 'Python', 'VBA']
+      items: [
+        'TypeScript', 'Angular', 'RxJS', 'JavaScript', 'Node.js', 'HTML', 'CSS',
+        'MongoDB', 'SQL', 'Python', 'VBA'
+      ]
+    },
+    {
+      label: 'Developer tools',
+      items: ['Git', 'GitHub', 'GitHub Actions', 'npm', 'Karma', 'Jasmine', 'VS Code']
     },
     {
       label: 'Tools and platforms',
@@ -112,7 +119,7 @@ export const RESUME: ResumeData = {
         'Platform Adoption & Value Realization', 'Expansion Opportunity Identification',
         'Cross-Functional Project Leadership', 'Diplomatic Communication & Team Coordination',
         'API Integration & Custom Systems', 'Email Campaign Strategy & Automation',
-        'UX Research & Design'
+        'UX Research & Design', 'Accessible Web Design (WCAG 2.1 AA)', 'Automated Testing'
       ]
     }
   ],

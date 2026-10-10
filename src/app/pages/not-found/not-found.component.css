@@ -1,11 +1,12 @@
 .lost {
   display: grid;
   gap: var(--space-7);
-  align-items: center;
+  align-items: start;
 }
 
+/* Side by side on wide screens, with the photo getting the larger share. */
 @media (min-width: 56rem) {
-  .lost { grid-template-columns: 1fr 1.2fr; }
+  .lost { grid-template-columns: 1fr 2fr; align-items: center; }
 }
 
 .lost-photo { margin: 0; }
