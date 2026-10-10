@@ -35,6 +35,5 @@ describe('AboutComponent', () => {
     const caption = page.querySelector('figcaption');
 
     expect(caption?.textContent).toContain(fixture.componentInstance.mascotName);
-    expect(caption?.textContent).toContain('Canva AI');
   });
 });

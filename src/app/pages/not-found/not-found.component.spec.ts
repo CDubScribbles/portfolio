@@ -26,11 +26,11 @@ describe('NotFoundComponent', () => {
     expect(page.textContent).toContain("That page doesn't exist, or it flatlined on the way here.");
   });
 
-  it('shows the detective image with descriptive alt text and its AI disclosure', () => {
+  it('shows the detective image with descriptive alt text and a caption', () => {
     const image = page.querySelector('.lost-photo img');
 
     expect(image?.getAttribute('alt')?.length).toBeGreaterThan(40);
-    expect(page.querySelector('figcaption')?.textContent).toContain('Canva AI');
+    expect(page.querySelector('figcaption')).not.toBeNull();
   });
 
   it('offers a way back home', () => {

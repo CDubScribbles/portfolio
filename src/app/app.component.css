@@ -80,6 +80,8 @@ main:focus { outline: none; }
 
 .footer-inner p { margin: 0; }
 
+.footer-note { flex-basis: 100%; }
+
 .footer-links {
   display: flex;
   flex-wrap: wrap;

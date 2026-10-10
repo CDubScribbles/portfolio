@@ -99,6 +99,10 @@ describe('AppComponent', () => {
     expect(fixture.componentInstance.backdropKey()).toBe('landing');
   });
 
+    it('discloses in the footer that the images are AI-made', () => {
+    expect(page.querySelector('footer .footer-note')?.textContent).toContain('Canva AI');
+  });
+
   it('shows the site name in the header and footer', () => {
     expect(page.querySelector('.brand')?.textContent).toContain(SITE.name);
     expect(page.querySelector('footer')?.textContent).toContain(SITE.name);
