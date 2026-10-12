@@ -20,11 +20,11 @@ describe('links to the pugs page', () => {
   const pugLinks = (page: HTMLElement): HTMLAnchorElement[] =>
     Array.from(page.querySelectorAll<HTMLAnchorElement>('a[href="/pugs"]'));
 
-  it('puts "Or Pugs?" in the landing page hero', () => {
+  it('puts "Or... Pugs?" in the landing page hero', () => {
     const links = pugLinks(render(LandingComponent));
 
     expect(links.length).toBe(1);
-    expect(links[0].textContent?.trim()).toBe('Or Pugs?');
+    expect(links[0].textContent?.trim()).toBe('Or... Pugs?');
     expect(links[0].closest('.hero')).not.toBeNull();
   });
 
