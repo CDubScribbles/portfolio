@@ -39,11 +39,11 @@ describe('PugsComponent', () => {
     }
   });
 
-  it('keeps the story as a numbered list with decorative numbers hidden from screen readers', () => {
-    expect(page.querySelector('ol.story')).not.toBeNull();
-    for (const number of Array.from(page.querySelectorAll('.number'))) {
-      expect(number.getAttribute('aria-hidden')).toBe('true');
-    }
+  it('keeps the story as an ordered list, one item per chapter', () => {
+    const list = page.querySelector('ol.story');
+
+    expect(list).not.toBeNull();
+    expect(list?.querySelectorAll(':scope > li').length).toBe(PUG_CHAPTERS.length);
   });
 
   it('offers a way back to the serious version of the story', () => {

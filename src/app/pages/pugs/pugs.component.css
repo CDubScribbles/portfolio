@@ -59,20 +59,6 @@ figcaption {
   gap: var(--space-3);
 }
 
-.number {
-  background: var(--pop);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-family: var(--font-mono);
-  font-size: var(--step-3);
-  font-weight: 800;
-  line-height: 1;
-}
-@supports not (background-clip: text) {
-  .number { background: none; color: var(--accent); }
-}
-
 .text {
   max-width: 28ch;
   font-size: var(--step-2);
@@ -83,7 +69,6 @@ figcaption {
 .outro { margin-top: var(--space-8); }
 
 @media (forced-colors: active) {
-  .number { background: none; color: CanvasText; }
   .frame::after { display: none; }
   .frame img { border-color: CanvasText; }
 }
@@ -122,7 +107,7 @@ figcaption {
     max-height: calc(100svh - var(--stack-top) - 9rem);
   }
 
-  /* The chapter number drifts in while its card is still rising. */
+  /* Each chapter eases in while its card is still rising. */
   @supports (animation-timeline: view()) {
     .chapter figure {
       animation: chapter-rise linear both;

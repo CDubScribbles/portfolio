@@ -10,17 +10,11 @@ main {
 main:focus { outline: none; }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-}
-
-/* Sticky only where the header fits on one row; on small screens it scrolls away. */
-@media (min-width: 40rem) {
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-  }
 }
 
 .header-inner {
@@ -61,6 +55,23 @@ main:focus { outline: none; }
 .nav-list a.active {
   border-bottom-color: var(--gold);
   color: var(--gold);
+}
+
+/* The header stays pinned on phones too, so it has to be slim. */
+@media (max-width: 39.99rem) {
+  .header-inner {
+    flex-wrap: nowrap;
+    gap: var(--space-3);
+    padding-block: var(--space-2);
+  }
+  .brand { font-size: var(--step-0); white-space: nowrap; }
+  .nav-list { flex-wrap: nowrap; gap: 0 var(--space-3); }
+  .nav-list a { padding: var(--space-3) 0; font-size: var(--step-small); }
+}
+
+@media (max-width: 21.99rem) {
+  .brand { font-size: var(--step-small); }
+  .nav-list { gap: 0 var(--space-2); }
 }
 
 .site-footer {
